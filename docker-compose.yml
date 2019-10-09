@@ -1,0 +1,20 @@
+version: "2"
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules # use node_modules from the docker container
+      - .:/app # map/refer local current directory to the app
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules # use node_modules from the docker container
+      - .:/app # map/refer local current directory to the app
+    command: ["npm", "run", "test"]
